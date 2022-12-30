@@ -1,0 +1,25 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX uri: <http://www.semanticweb.org/david/ontologies/2022/11/university#>
+
+# Get all TAs belonging to a CS department. 
+SELECT ?ta
+	WHERE { ?ta uri:staff_of uri:CS_dep. ?ta rdf:type uri:TA}
+
+# Get the courses Student_1 is currently studying.
+SELECT ?course
+    WHERE { uri:Student_1 uri:enrolled_in ?course.}
+
+# Get all the courses offered by a FCAI.
+SELECT ?course
+    WHERE { uri:FCAI uri:have_department ?department. ?course uri:course_of_department ?department.}
+
+# Get Lecturers of a FCAI.
+SELECT ?lecturer
+	WHERE { ?lecturer uri:staff_of ?department. uri:FCAI uri:have_department ?department. ?lecturer rdf:type uri:Lecturer.}
+
+# Get all faculties of a Cairo university.
+SELECT ?faculty
+	WHERE { uri:Cairo_Uni uri:have_faculty ?faculty.}
