@@ -18,17 +18,14 @@ public class Main {
     Main() {
         this.clips = new Environment();
         this.router = new CaptureRouter(clips, new String[]{Router.STDOUT});
-        System.out.println("Loading Classes, Instances and Rules to working memory");
         try {
             clips.load("clips_src/classes.clp");
             clips.load("clips_src/instances.clp");
             clips.load("clips_src/rules.clp");
             clips.reset();
-            System.out.println();
         } catch (CLIPSException e) {
-            JOptionPane.showMessageDialog(new JFrame(), e.toString(), "Dialog",
+            JOptionPane.showMessageDialog(panel, e.toString(), "Dialog",
                     JOptionPane.ERROR_MESSAGE);
-            throw new RuntimeException(e);
         }
 
         this.runButton.addActionListener(e -> {
@@ -38,7 +35,8 @@ public class Main {
                 outputText.setText(router.getOutput());
                 router.clear();
             } catch (CLIPSException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(panel, e.toString(), "Dialog",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         });
@@ -69,14 +67,14 @@ public class Main {
     }
 
     public static void main(String[] args){
-        JFrame f = new JFrame("Semantic Web Project");
-        f.setContentPane(new Main().panel);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setMinimumSize(new Dimension(500, 250));
-        f.setResizable(false);
-        f.pack();
-        f.setLocationByPlatform(true);
-        f.setVisible(true);
+        JFrame frame = new JFrame("Semantic Web Project");
+        frame.setContentPane(new Main().panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(640, 250));
+        frame.setResizable(false);
+        frame.pack();
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);
     }
 
 }
